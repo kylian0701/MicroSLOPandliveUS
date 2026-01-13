@@ -9,12 +9,12 @@ export default defineContentScript({
             },
             {
                 from: "Satya Nadella",
-                to: "Slopya Nadella",
+                to: "Slopya Nuttela",
                 ignorePrefix: ["@", "#"],
             },
             {
                 from: "Satya Narayana Nadella",
-                to: "Slopya Narayana Nadella",
+                to: "Slopya Narayana Nuttela",
                 ignorePrefix: ["@", "#"],
             },
         ]);
