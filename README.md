@@ -1,3 +1,8 @@
+<center>
+    <img alt="Microslop logo" src="public/icon/128.png" />
+    <h1>Microslop</h1>
+</center>
+
 ### An extension that converts
 
 ### Microsoft -> Microslop
@@ -19,3 +24,5 @@ here are some images if you like
 ![](/images/screenshots/chrome/1.png)
 ![](/images/screenshots/chrome/2.png)
 ![](/images/screenshots/chrome/3.png)
+
+also what's your thoughts on the logo does it look good?
