@@ -1,3 +1,4 @@
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "wxt";
 
 // See https://wxt.dev/api/config.html
@@ -7,7 +8,7 @@ export default defineConfig({
         excludeSources: ["debub.log", "bun.lock"],
     },
     manifest: {
-        version: "0.0.2",
+        version: "0.0.3",
         name: "Microslop",
         short_name: "Microslop",
         description: "An extension that converts Microsoft to Microslop",
@@ -21,6 +22,11 @@ export default defineConfig({
                 },
             },
         },
-        permissions: [],
+        permissions: ["storage"],
     },
+
+    modules: ["@wxt-dev/module-solid"],
+    vite: () => ({
+        plugins: [tailwindcss()],
+    }),
 });

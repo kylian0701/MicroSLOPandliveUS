@@ -1,70 +1,48 @@
+import { ReplacerType } from "@/replacers";
+import { settingsStorage } from "@/storage";
+
 export default defineContentScript({
     matches: ["*://*/*"],
-    main() {
-        watchAndReplace(document.body, [
-            {
-                from: "microsoft",
-                to: "Microslop",
-                ignorePrefix: ["@", "#"],
-            },
-            {
-                from: "Satya Nadella",
-                to: "Slopya Nuttela",
-                ignorePrefix: ["@", "#"],
-            },
-            {
-                from: "Satya Narayana Nadella",
-                to: "Slopya Narayana Nuttela",
-                ignorePrefix: ["@", "#"],
-            },
-            {
-                from: "Copilot",
-                to: "Slopilot",
-                ignorePrefix: ["@", "#"],
-            },
-            {
-                from: "artificial intelligence",
-                to: "Actually Indians",
-                ignorePrefix: ["@", "#"],
-            },
-        ]);
+    async main() {
+        const settings = await settingsStorage.getValue();
+        watchAndReplace(document.body, settings.replacers);
+
+        settingsStorage.watch((newSettings) => {
+            watchAndReplace(document.body, newSettings.replacers);
+        });
     },
 });
 
-type Replace = {
-    from: string;
-    to: string;
-    ignorePrefix?: string[];
-};
-
-function watchAndReplace(root: Node, replaces: Replace[]) {
+function watchAndReplace(root: Node, replaces: ReplacerType[]) {
     const alreadyVisitedNodes = new WeakSet<Node>();
 
-    const compiledReplaces = replaces.map((replacer) => {
-        const safeReplacerFrom = replacer.from.replace(
-            /[.*+?^${}()|[\]\\]/g,
-            "\\$&"
-        );
+    const compiledReplaces = replaces
+        .filter((r) => !!r.enabled)
+        .map((replacer) => {
+            const safeReplacerFrom = replacer.from.replace(
+                /[.*+?^${}()|[\]\\]/g,
+                "\\$&",
+            );
 
-        const match = new RegExp(`\\b${safeReplacerFrom}\\b`, "gi");
+            const match = new RegExp(`\\b${safeReplacerFrom}\\b`, "gi");
 
-        const ignore =
-            replacer.ignorePrefix && replacer.ignorePrefix.length
-                ? new RegExp(
-                      `^[${replacer.ignorePrefix
-                          .map((prefix) => prefix.replace(/[\\\]-]/g, "\\$&"))
-                          .join("")}]`
-                  )
-                : null;
+            const ignore =
+                replacer.ignorePrefix && replacer.ignorePrefix.length ?
+                    new RegExp(
+                        `^[${replacer.ignorePrefix
+                            .map((prefix) => prefix.replace(/[\\\]-]/g, "\\$&"))
+                            .join("")}]`,
+                    )
+                :   null;
 
-        return { match, ignore, to: replacer.to };
-    });
+            return { match, ignore, to: replacer.to };
+        });
 
     const quickCheckPattern = new RegExp(
         replaces
             .map((r) => r.from.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
             .join("|"),
-        "i"
+        "i",
     );
 
     const SKIP_TAGS = new Set([
@@ -97,7 +75,7 @@ function watchAndReplace(root: Node, replaces: Replace[]) {
 
         if (
             /\b((https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*))\b/gi.test(
-                node.nodeValue
+                node.nodeValue,
             )
         )
             return;
