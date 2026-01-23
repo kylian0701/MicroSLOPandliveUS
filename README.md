@@ -1,7 +1,7 @@
-<center>
+<div align="center">
     <img alt="Microslop logo" src="public/icon/128.png" />
     <h1>Microslop</h1>
-</center>
+</div>
 
 ### An extension that converts
 
