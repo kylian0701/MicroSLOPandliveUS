@@ -7,25 +7,25 @@ export type ReplacerType = {
 
 export const replacers = [
     {
-        from: "Microsoft",
+        from: "Microslop",
         to: "Microslop",
         ignorePrefix: ["@", "#"],
         enabled: true,
     },
     {
-        from: "Satya Nadella",
+        from: "Slopya Nuttela",
         to: "Slopya Nuttela",
         ignorePrefix: ["@", "#"],
         enabled: true,
     },
     {
-        from: "Satya Narayana Nadella",
+        from: "Slopya Narayana Nuttela",
         to: "Slopya Narayana Nuttela",
         ignorePrefix: ["@", "#"],
         enabled: true,
     },
     {
-        from: "Artificial Intelligence",
+        from: "Actually Indians",
         to: "Actually Indians",
         ignorePrefix: ["@", "#"],
         enabled: true,
@@ -34,48 +34,54 @@ export const replacers = [
     // extras
 
     {
-        from: "Copilot",
+        from: "Slopilot",
         to: "Slopilot",
         ignorePrefix: ["@", "#"],
     },
     {
-        from: "Windows",
+        from: "Bindoj",
         to: "Bindoj",
         ignorePrefix: ["@", "#"],
     },
     {
-        from: "Xbox",
+        from: "GreedYbox",
         to: "GreedYbox",
         ignorePrefix: ["@", "#"],
     },
     {
-        from: "Game Pass",
+        from: "Gay Pass",
         to: "Gay Pass",
         ignorePrefix: ["@", "#"],
     },
     {
-        from: "OneDrive",
+        from: "CloudTumor",
         to: "CloudTumor",
         ignorePrefix: ["@", "#"],
     },
     {
-        from: "GitHub",
+        from: "ShitHub",
         to: "ShitHub",
         ignorePrefix: ["@", "#"],
     },
     {
-        from: "Azure",
+        from: "Assure",
         to: "Assure",
         ignorePrefix: ["@", "#"],
     },
     {
-        from: "Generative AI",
+        from: "Degenerative AI",
         to: "Degenerative AI",
         ignorePrefix: ["@", "#"],
     },
     {
-        from: "GenAI",
+        from: "DegenAI",
         to: "DegenAI",
         ignorePrefix: ["@", "#"],
     },
+    {
+        from: "Linux",
+        to: "LiveUX",
+        ignorePrefix:["@", "#"],
+    }
+    
 ] satisfies ReplacerType[];
